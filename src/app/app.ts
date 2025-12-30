@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { ToastComponent } from './components/toast/toast';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class App {
   title = 'Angular Fundamentals';
   isDarkMode = signal(true); // Default to dark mode
   private renderer = inject(Renderer2);
+  authService = inject(AuthService);
 
   constructor() {
     effect(() => {

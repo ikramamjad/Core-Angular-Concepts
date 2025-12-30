@@ -1,9 +1,11 @@
 <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 transition-colors duration-300 font-sans">
    <!-- Property Binding [ ] -->
    <!-- Binding the signal value isDarkMode() to the child input --> 
-  <app-header [title]="title" [isDarkMode]="isDarkMode()" (themeToggled)="toggleTheme()"></app-header>
+  @if (authService.currentUser()) {
+    <app-header [title]="title" [isDarkMode]="isDarkMode()" (themeToggled)="toggleTheme()"></app-header>
+  }
   <app-toast></app-toast>
-  <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+  <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" [class.pt-8]="!authService.currentUser()" [class.pt-24]="authService.currentUser()">
     <router-outlet></router-outlet>
   </main>
   <app-footer></app-footer>
