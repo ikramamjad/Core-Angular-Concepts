@@ -1,0 +1,64 @@
+<div class="container mx-auto px-4 py-8 space-y-12">
+  <div class="border-b border-gray-200 dark:border-gray-700 pb-5">
+    <h2 class="text-3xl font-bold leading-7 text-gray-900 dark:text-white sm:truncate sm:text-4xl sm:tracking-tight">UI Components Library Demo</h2>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500 dark:text-gray-400">
+      Showcasing reusable Angular components for Buttons, Modals, and Tables.
+    </p>
+  </div>
+
+  <!-- Button Section -->
+  <section class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 border-b dark:border-gray-700 pb-2">1. Buttons</h3>
+    <div class="flex flex-wrap gap-4 items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+      <app-button label="Primary Button" type="primary" (onClick)="log('Primary Clicked')"></app-button>
+      <app-button label="Secondary Button" type="secondary" (onClick)="log('Secondary Clicked')"></app-button>
+      <app-button label="Success Button" type="success" (onClick)="log('Success Clicked')"></app-button>
+      <app-button label="Danger Button" type="danger" (onClick)="log('Danger Clicked')"></app-button>
+      <app-button label="Disabled" type="primary" [disabled]="true"></app-button>
+      
+      <div class="w-full h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
+      
+      <app-button label="Small" size="small" type="primary"></app-button>
+      <app-button label="Medium" size="medium" type="primary"></app-button>
+      <app-button label="Large" size="large" type="primary"></app-button>
+    </div>
+  </section>
+
+  <!-- Modal Section -->
+  <section class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 border-b dark:border-gray-700 pb-2">2. Modals</h3>
+    <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+      <app-button label="Open Confirmation Modal" type="primary" (onClick)="isModalOpen = true"></app-button>
+
+      <app-modal
+        [isOpen]="isModalOpen"
+        title="Confirm Deletion"
+        content="Are you sure you want to delete this item? This action cannot be undone."
+        [buttons]="[
+          { label: 'Delete', action: 'confirm', type: 'danger' },
+          { label: 'Cancel', action: 'cancel', type: 'secondary' }
+        ]"
+        (action)="handleModalAction($event)"
+        (closeEvent)="isModalOpen = false"
+      >
+        <div class="mt-4 p-3 bg-yellow-50 text-yellow-800 text-sm rounded border border-yellow-200">
+          <strong>Note:</strong> Custom content can also be projected here!
+        </div>
+      </app-modal>
+    </div>
+  </section>
+
+  <!-- Table Section -->
+  <section class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 border-b dark:border-gray-700 pb-2">3. Data Table</h3>
+    <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+      <app-table
+        [columns]="tableColumns"
+        [data]="tableData"
+        [pageSize]="5"
+        (pageChange)="log('Page Changed: ' + $event)"
+        (search)="log('Search Term: ' + $event)"
+      ></app-table>
+    </div>
+  </section>
+</div>

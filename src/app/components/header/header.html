@@ -15,6 +15,8 @@
       <div class="flex items-center gap-4">
         <nav class="hidden md:flex gap-6 mr-4">
           <a routerLink="/dashboard" routerLinkActive="text-cyan-500 dark:text-cyan-400" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Dashboard</a>
+          <a routerLink="/reviews" routerLinkActive="text-cyan-500 dark:text-cyan-400" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Reviews</a>
+          <a routerLink="/ui-demo" routerLinkActive="text-cyan-500 dark:text-cyan-400" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">UI Demo</a>
           
           @if (!authService.currentUser()) {
             <a routerLink="/login" routerLinkActive="text-cyan-500 dark:text-cyan-400" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Login</a>
