@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Search, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, Search, ChevronLeft, ChevronRight, Trash2 } from 'lucide-angular';
 
 export interface Column {
   key: string;
@@ -43,6 +43,9 @@ export interface Column {
               >
                 {{ col.label }}
               </th>
+              <th *ngIf="showActions" scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -54,9 +57,18 @@ export interface Column {
                 <!-- Simple text binding for now. Can be enhanced with Templates later -->
                 {{ row[col.key] }}
               </td>
+              <td *ngIf="showActions" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <button
+                  (click)="onDelete(row)"
+                  class="text-red-600 hover:text-red-900 transition-colors focus:outline-none"
+                  title="Delete Row"
+                >
+                  <lucide-icon [img]="Trash2" class="h-5 w-5"></lucide-icon>
+                </button>
+              </td>
             </tr>
             <tr *ngIf="displayedData.length === 0">
-              <td [attr.colspan]="columns.length" class="px-6 py-12 text-center text-gray-500">
+              <td [attr.colspan]="columns.length + (showActions ? 1 : 0)" class="px-6 py-12 text-center text-gray-500">
                 No data found
               </td>
             </tr>
@@ -124,11 +136,13 @@ export class TableComponent implements OnChanges {
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
+  @Output() delete = new EventEmitter<any>();
 
   // Icons
   readonly Search = Search;
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
+  readonly Trash2 = Trash2;
 
   // Internal State
   searchTerm: string = '';
@@ -136,6 +150,9 @@ export class TableComponent implements OnChanges {
   displayedData: any[] = [];
   
   // Computed
+  get showActions(): boolean {
+    return this.delete.observed;
+  }
   get totalItems(): number { return this.filteredData.length; }
   get totalPages(): number { return Math.ceil(this.totalItems / this.pageSize); }
   get startIndex(): number { return (this.currentPage - 1) * this.pageSize; }
@@ -165,6 +182,10 @@ export class TableComponent implements OnChanges {
       this.pageChange.emit(page);
       this.updateDisplayedData();
     }
+  }
+
+  onDelete(row: any) {
+    this.delete.emit(row);
   }
 
   private filterAndPaginate() {

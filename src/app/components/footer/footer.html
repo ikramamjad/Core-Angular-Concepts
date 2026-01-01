@@ -1,5 +1,33 @@
-<footer class="mt-auto py-8 text-center text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800">
-  <p class="text-sm">
-    &copy; {{ year }} Angular Fundamentals. Built with Angular & Tailwind CSS.
-  </p>
+<footer class="mt-auto py-8 text-center text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-sm">
+      &copy; {{ year }} Angular Fundamentals. Built with Angular & Tailwind CSS.
+    </p>
+
+    <!-- Inline Subscribe Form -->
+    <form [formGroup]="subscribeForm" (ngSubmit)="onSubscribe()" class="flex items-center gap-2">
+      <div class="relative">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          class="bg-slate-800 text-slate-200 border border-slate-700 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-500 w-64"
+          [class.border-red-500]="subscribeForm.get('email')?.invalid && subscribeForm.get('email')?.touched"
+        />
+        <!-- Tooltip/Absolute error could go here if needed, but inline simple design usually avoids clutter -->
+      </div>
+      
+      <button
+        type="submit"
+        [disabled]="subscribeForm.invalid || isLoading"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ isLoading ? '...' : 'Subscribe' }}
+      </button>
+
+      <!-- Minimal status feedback -->
+      <span *ngIf="successMessage" class="text-green-500 text-sm animate-fade-in">{{ successMessage }}</span>
+      <span *ngIf="errorMessage" class="text-red-500 text-sm animate-fade-in">{{ errorMessage }}</span>
+    </form>
+  </div>
 </footer>

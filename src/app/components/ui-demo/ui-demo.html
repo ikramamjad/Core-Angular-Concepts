@@ -58,6 +58,7 @@
         [pageSize]="5"
         (pageChange)="log('Page Changed: ' + $event)"
         (search)="log('Search Term: ' + $event)"
+        (delete)="handleDelete($event)"
       ></app-table>
     </div>
   </section>
