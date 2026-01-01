@@ -38,6 +38,8 @@ export class UiDemoComponent {
     { id: 12, name: 'Kelly Martin', role: 'Editor', status: 'Inactive', email: 'kelly@example.com' }
   ];
 
+  private nextId = this.tableData.length + 1;
+
   log(message: string) {
     console.log(message);
   }
@@ -48,5 +50,46 @@ export class UiDemoComponent {
       alert('Confirmed!');
     }
     this.isModalOpen = false;
+  }
+
+  addDataForButton(kind: 'primary' | 'secondary' | 'success' | 'danger') {
+    const presets = {
+      primary: {
+        name: 'Primary Action Item',
+        role: 'Admin',
+        status: 'Active',
+        email: 'primary.action@example.com'
+      },
+      secondary: {
+        name: 'Secondary Navigation Entry',
+        role: 'User',
+        status: 'Queued',
+        email: 'secondary.nav@example.com'
+      },
+      success: {
+        name: 'Success Job Result',
+        role: 'Service',
+        status: 'Success',
+        email: 'success@system.local'
+      },
+      danger: {
+        name: 'Danger Operation Alert',
+        role: 'Security',
+        status: 'Critical',
+        email: 'alert@security.local'
+      }
+    } as const;
+
+    const preset = presets[kind];
+    const newRow = {
+      id: this.nextId++,
+      name: preset.name,
+      role: preset.role,
+      status: preset.status,
+      email: preset.email
+    };
+
+    this.tableData = [newRow, ...this.tableData];
+    this.log(`${kind} data added: ${newRow.name}`);
   }
 }

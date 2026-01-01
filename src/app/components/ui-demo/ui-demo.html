@@ -10,10 +10,10 @@
   <section class="space-y-4">
     <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 border-b dark:border-gray-700 pb-2">1. Buttons</h3>
     <div class="flex flex-wrap gap-4 items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-      <app-button label="Primary Button" type="primary" (onClick)="log('Primary Clicked')"></app-button>
-      <app-button label="Secondary Button" type="secondary" (onClick)="log('Secondary Clicked')"></app-button>
-      <app-button label="Success Button" type="success" (onClick)="log('Success Clicked')"></app-button>
-      <app-button label="Danger Button" type="danger" (onClick)="log('Danger Clicked')"></app-button>
+      <app-button label="Primary Button" type="primary" (onClick)="addDataForButton('primary')"></app-button>
+      <app-button label="Secondary Button" type="secondary" (onClick)="addDataForButton('secondary')"></app-button>
+      <app-button label="Success Button" type="success" (onClick)="addDataForButton('success')"></app-button>
+      <app-button label="Danger Button" type="danger" (onClick)="addDataForButton('danger')"></app-button>
       <app-button label="Disabled" type="primary" [disabled]="true"></app-button>
       
       <div class="w-full h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
